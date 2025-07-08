@@ -26,7 +26,7 @@ const EditProject = () => {
 
   const fetchProject = async () => {
     try {
-      const response = await api.get(`/projects/${id}`);
+      const response = await api.get(`/api/projects/${id}`);
       const project = response.data;
       
       setFormData({

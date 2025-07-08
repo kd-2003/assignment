@@ -25,21 +25,9 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      if (!process.env.REACT_APP_BACKEND_URL) {
-        console.error('REACT_APP_BACKEND_URL is not defined');
-        throw new Error('Backend URL is not set');
-      }
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, {
-        email: formData.email,
-        password: formData.password
-      });
-      // handle login success (e.g., save token, redirect)
-      // You may want to call your context login here if needed
-      // For now, just redirect:
+    const success = await login(formData.email, formData.password);
+    if (success) {
       navigate('/');
-    } catch (error) {
-      // handle error (show toast, etc.)
     }
     setLoading(false);
   };

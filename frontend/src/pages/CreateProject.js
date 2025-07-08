@@ -52,7 +52,7 @@ const CreateProject = () => {
 
     setLoading(true);
     try {
-      const response = await api.post('/projects', formData);
+      const response = await api.post('/api/projects', formData);
       toast.success('Project created successfully!');
       navigate(`/projects/${response.data._id}`);
     } catch (error) {

@@ -13,7 +13,7 @@ const Home = () => {
 
   const fetchRecentProjects = async () => {
     try {
-      const response = await api.get('/projects?limit=6');
+      const response = await api.get('/api/projects?limit=6');
       setRecentProjects(response.data);
     } catch (error) {
       console.error('Error fetching projects:', error);
