@@ -49,9 +49,16 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const success = await updateProfile(formData);
-    if (success) {
+    try {
+      await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/users/profile`, formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      toast.success('Profile updated successfully!');
       setIsEditing(false);
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Profile update failed');
     }
     setLoading(false);
   };
