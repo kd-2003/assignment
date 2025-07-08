@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import axios from 'axios';
 import { FiUser, FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 
 const Register = () => {
@@ -15,7 +15,6 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   
-  const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -69,10 +68,18 @@ const Register = () => {
     }
 
     setLoading(true);
-    
-    const success = await register(formData.name, formData.email, formData.password);
-    if (success) {
+    try {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/register`, {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password
+      });
       navigate('/');
+    } catch (error) {
+      setErrors({
+        ...errors,
+        email: error.response?.data?.message || 'Registration failed'
+      });
     }
     setLoading(false);
   };

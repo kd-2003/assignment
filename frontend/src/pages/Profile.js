@@ -30,7 +30,7 @@ const Profile = () => {
 
   const fetchUserProjects = async () => {
     try {
-      const response = await axios.get(`/api/projects?user=${user._id}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/projects?user=${user._id}`);
       setUserProjects(response.data);
     } catch (error) {
       console.error('Error fetching user projects:', error);

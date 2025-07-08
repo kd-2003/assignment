@@ -26,7 +26,7 @@ const Projects = () => {
       if (filter !== 'all') params.append('user', filter);
       params.append('page', currentPage);
       params.append('limit', 12);
-      const response = await axios.get(`/api/projects?${params}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/projects?${params}`);
       if (currentPage === 1) {
         setProjects(response.data);
       } else {
@@ -52,7 +52,7 @@ const Projects = () => {
 
   const handleLike = async (projectId) => {
     try {
-      await axios.put(`/api/projects/${projectId}/like`);
+      await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/projects/${projectId}/like`);
       setProjects(prev =>
         prev.map(project =>
           project._id === projectId

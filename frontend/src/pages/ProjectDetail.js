@@ -23,7 +23,7 @@ const ProjectDetail = () => {
 
   const fetchProject = async () => {
     try {
-      const response = await axios.get(`/api/projects/${id}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/projects/${id}`);
       setProject(response.data);
     } catch (error) {
       console.error('Error fetching project:', error);
@@ -36,7 +36,7 @@ const ProjectDetail = () => {
 
   const fetchComments = async () => {
     try {
-      const response = await axios.get(`/api/comments/project/${id}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/comments/project/${id}`);
       setComments(response.data);
     } catch (error) {
       console.error('Error fetching comments:', error);
@@ -49,7 +49,7 @@ const ProjectDetail = () => {
       return;
     }
     try {
-      await axios.put(`/api/projects/${id}/like`);
+      await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/projects/${id}/like`);
       setProject(prev => ({
         ...prev,
         likes: prev.likes.includes(user._id)
@@ -67,7 +67,7 @@ const ProjectDetail = () => {
     if (!commentContent.trim()) return;
     setSubmittingComment(true);
     try {
-      const response = await axios.post('/api/comments', {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/comments`, {
         content: commentContent,
         projectId: id
       });
@@ -85,7 +85,7 @@ const ProjectDetail = () => {
   const handleDeleteProject = async () => {
     if (!window.confirm('Are you sure you want to delete this project?')) return;
     try {
-      await axios.delete(`/api/projects/${id}`);
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/projects/${id}`);
       toast.success('Project deleted successfully');
       navigate('/projects');
     } catch (error) {
@@ -96,7 +96,7 @@ const ProjectDetail = () => {
 
   const handleDeleteComment = async (commentId) => {
     try {
-      await axios.delete(`/api/comments/${commentId}`);
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/comments/${commentId}`);
       setComments(prev => prev.filter(comment => comment._id !== commentId));
       toast.success('Comment deleted successfully');
     } catch (error) {

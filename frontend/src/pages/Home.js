@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import { FiGithub, FiExternalLink, FiEye, FiHeart, FiMessageCircle, FiUser } from 'react-icons/fi';
 
 const Home = () => {
@@ -13,7 +13,7 @@ const Home = () => {
 
   const fetchRecentProjects = async () => {
     try {
-      const response = await axios.get('/api/projects?limit=6');
+      const response = await api.get('/projects?limit=6');
       setRecentProjects(response.data);
     } catch (error) {
       console.error('Error fetching projects:', error);

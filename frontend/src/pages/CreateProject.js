@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import toast from 'react-hot-toast';
 import { FiPlus, FiX } from 'react-icons/fi';
 
@@ -52,7 +52,7 @@ const CreateProject = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post('/api/projects', formData);
+      const response = await api.post('/projects', formData);
       toast.success('Project created successfully!');
       navigate(`/projects/${response.data._id}`);
     } catch (error) {

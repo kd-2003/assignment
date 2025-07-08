@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import toast from 'react-hot-toast';
 import { FiPlus, FiX } from 'react-icons/fi';
 
@@ -26,7 +26,7 @@ const EditProject = () => {
 
   const fetchProject = async () => {
     try {
-      const response = await axios.get(`/api/projects/${id}`);
+      const response = await api.get(`/projects/${id}`);
       const project = response.data;
       
       setFormData({
@@ -81,7 +81,7 @@ const EditProject = () => {
 
     setSaving(true);
     try {
-      await axios.put(`/api/projects/${id}`, formData);
+      await api.put(`/projects/${id}`, formData);
       toast.success('Project updated successfully!');
       navigate(`/projects/${id}`);
     } catch (error) {
